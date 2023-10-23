@@ -1,14 +1,14 @@
 import requests
 from datetime import datetime
-from Configuration.Configuration import GetConfiguration
-from Enum.EnumTypeMessage import EnumTypeMessage
+from Configuration import GetConfiguration
 
 configuration = GetConfiguration()
 tokenApiTelegram = configuration["TokenApiTelegram"]
+URLBaseApiTelegram = configuration["URLApiTelegram"]
 
 def GetJsonTelegram():
     try:
-        url = f"https://api.telegram.org/bot{tokenApiTelegram}/getUpdates"
+        url = f"{URLBaseApiTelegram}/bot{tokenApiTelegram}/getUpdates"
 
         response = requests.get(url)
 
@@ -23,16 +23,17 @@ def GetJsonTelegram():
 
 
 
-def SendMessageToGroupTelegram(typeMessage : EnumTypeMessage, message):
+def SendMessageToGroupTelegram(typeMessage, message):
     try:
         dateTimeCurrent = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
-        message = f"{typeMessage} {dateTimeCurrent}:{message}"
+        message = f"{message}"
 
         groupId = GetGroupIdTelegram()
         data = {"chat_id": groupId, "text": message}
-        url = f"https://api.telegram.org/bot{tokenApiTelegram}/sendMessage"
-
+        url = f"{URLBaseApiTelegram}/bot{tokenApiTelegram}/sendMessage"
         requests.post(url, data)
+
+        print(f"Message send to group in telegram with sucess!")
     except Exception as e:
         print("Error to send message to group in telegram: ", e)
 

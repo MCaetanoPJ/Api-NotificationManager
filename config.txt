@@ -1,0 +1,5 @@
+[CONFIG]
+TokenApiTelegram =
+
+[URL_BASE]
+URLApiTelegram = https://api.telegram.org

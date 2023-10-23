@@ -1,11 +1,9 @@
 from fastapi import FastAPI
-
-from Api.TelegramBot import SendMessageToGroupTelegram
-from Enum.EnumTypeMessage import EnumTypeMessage
+from TelegramBot import *
 
 app = FastAPI()
 
 @app.get("/SendMessageToTelegram/{typeMessage}&{message}")
-def IndicatorCurrency(typeMessage : EnumTypeMessage, message):
+def SendMessageToTelegram(typeMessage, message):
     SendMessageToGroupTelegram(typeMessage, message)
     return "Message send with sucess to group in telegram."
